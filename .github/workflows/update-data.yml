@@ -1,0 +1,61 @@
+name: Update IP list data
+
+on:
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-iplist-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Generate current payload
+        run: uv run iplists --output data.msgpack.zstd
+
+      - name: Validate generated payload
+        run: |
+          test -s data.msgpack.zstd
+          uv run python - <<'PY'
+          from pathlib import Path
+
+          from iplists.format import decode
+
+          payload = Path("data.msgpack.zstd").read_bytes()
+          dataset = decode(payload)
+          assert set(dataset) == {"trees", "sources"}
+          assert set(dataset["trees"]) == {"ipv4", "ipv6"}
+          for family in dataset["trees"].values():
+              assert set(family) == {"tor", "vpn", "datacentre"}
+          assert dataset["sources"]
+          PY
+
+      - name: Commit and push updated payload
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.msgpack.zstd
+          if git diff --cached --quiet; then
+            echo "Payload is already current."
+            exit 0
+          fi
+          git commit -m "Update IP list data"
+          git push
