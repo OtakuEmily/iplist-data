@@ -3,7 +3,7 @@ name = "iplist-data"
 version = "0.1.0"
 requires-python = ">=3.13"
 dependencies = [
-    "iplists>=0.1.0",
+    "iplists>=0.1.2",
 ]
 
 [[tool.uv.index]]
