@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
+  push:
+
 
 permissions:
   contents: write
@@ -14,6 +16,7 @@ concurrency:
 
 jobs:
   update:
+    if: ${{ github.event_name != 'push' || github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
