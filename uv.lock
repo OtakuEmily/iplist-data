@@ -88,11 +88,11 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "iplists", specifier = ">=0.1.2" }]
+requires-dist = [{ name = "iplists", specifier = ">=0.1.3" }]
 
 [[package]]
 name = "iplists"
-version = "0.1.2"
+version = "0.1.3"
 source = { registry = "https://forge.kemonomimi.moe/api/packages/hive/pypi/simple" }
 dependencies = [
     { name = "backoff" },
@@ -101,9 +101,9 @@ dependencies = [
     { name = "pattrie" },
     { name = "zstandard" },
 ]
-sdist = { url = "https://forge.kemonomimi.moe/api/packages/hive/pypi/files/iplists/0.1.2/iplists-0.1.2.tar.gz", hash = "sha256:cde92a6997ae204a81d9817bc5ec1c6287c6ed30229e3f7ff89bcc4066eaa2b4", size = 12102 }
+sdist = { url = "https://forge.kemonomimi.moe/api/packages/hive/pypi/files/iplists/0.1.3/iplists-0.1.3.tar.gz", hash = "sha256:0cb87b0ad8cb20e832bce7fbf68caa541fd98d6b77e4775fa74447985ac7e077", size = 12109 }
 wheels = [
-    { url = "https://forge.kemonomimi.moe/api/packages/hive/pypi/files/iplists/0.1.2/iplists-0.1.2-py3-none-any.whl", hash = "sha256:3a6752b8402c78b9f1de3c6214a40d79373ae5324df36b8542035e8bc40c27ab", size = 14608 },
+    { url = "https://forge.kemonomimi.moe/api/packages/hive/pypi/files/iplists/0.1.3/iplists-0.1.3-py3-none-any.whl", hash = "sha256:03f878e95031e1c3853fa730e14a557b974d2a8187cdde79b5f91cd42bb45dc8", size = 14612 },
 ]
 
 [[package]]
